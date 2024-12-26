@@ -6,17 +6,17 @@
  */
 
 /*
- * Plugin Name: Sermon Manager Pro
- * Plugin URI: https://sermonmanager.pro/
- * Description: This plugin is an addon to Sermon Manager, the most popular sermon plugin for WordPress. Enjoy templates, page builder support, page assignment and much more.
- * Version: 2.0.15.2
- * Author: WP for Church Author
+ * Plugin Name: AudioPod Pro
+ * Plugin URI: https://audiopod.cloud/
+ * Description: A fork of Sermon Manager Pro
+ * Version: 1.0
+ * Author: David Sudarma
  * URI: https://www.wpforchurch.com/
  *
- * Text Domain: sermon-manager-pro
+ * Text Domain: audiopod-pro
  *
- * Requires at least: 4.5
- * Tested up to: 6.3
+ * Requires at least: 6.7.1
+ * Tested up to: 6.7.1
  */
 
 // All files must be PHP 5.3 compatible!
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or exit;
  */
 function smp_load() {
 	define( 'SMP_VERSION', preg_match( '/^.*Version: (.*)$/m', file_get_contents( __FILE__ ), $version ) ? trim( $version[1] ) : 'N/A' );
-	define( 'SMP_SM_VERSION', '2.15.15' ); // Minimum required Sermon Manager version.
+	define( 'SMP_SM_VERSION', '1.0' ); // Minimum required Sermon Manager version.
 
 	define( 'SMP__FILE__', __FILE__ );
 	define( 'SMP_BASENAME', plugin_basename( SMP__FILE__ ) );
