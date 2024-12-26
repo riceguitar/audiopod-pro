@@ -96,68 +96,6 @@ function my_run_only_once() {
 
 
 
-
-/* plugin Updater EDD */
-
-define( 'EDD_CHURCH_STORE_URL_SMPRO', 'https://my.wpforchurch.com' ); 
-define( 'PRODUCT_ID_ON_CHURCH_SMPRO', 53 ); 
-define( 'PRODUCT_NAME_ON_CHURCH_SMPRO', 'Sermon Manager Pro 2.0' );
-
-register_deactivation_hook( __FILE__, 'remove_template_directory' );
-function remove_template_directory(){
-	rrmdir(WP_CONTENT_DIR.'/data');
-}
-
-function rrmdir($dir) {
-   if (is_dir($dir)) { 
-     $objects = scandir($dir); 
-     foreach ($objects as $object) { 
-       if ($object != "." && $object != "..") { 
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object); 
-       } 
-     } 
-     reset($objects); 
-     rmdir($dir); 
-   } 
-}
-
-// if( !class_exists( 'SMPRO_SL_Plugin_Updater' ) ) {
-// 	include( dirname( __FILE__ ) . '/SMPRO_SL_Plugin_Updater.php' );
-// }
-
-// function smpro_plugin_updater_fun() {
-// 	$license_key = trim( get_option( 'sermonmanager_license_key' ) );
-
-// 	$edd_updater = new SMPRO_SL_Plugin_Updater( EDD_CHURCH_STORE_URL_SMPRO, __FILE__,
-// 		array(
-// 			'version' => '2.0.4',                    // current version number
-// 			'license' => $license_key,             // license key (used get_option above to retrieve from DB)
-// 			'item_id' => PRODUCT_ID_ON_CHURCH_SMPRO,       // ID of the product
-// 			'author'  => 'Easy Digital Downloads', // author of this plugin
-// 			'beta'    => false,
-// 		)
-// 	);
-
-// }
-// add_action( 'admin_init', 'smpro_plugin_updater_fun', 0 );
-
-
-// function smpro_license_register_option() {
-// 	// creates our settings in the options table
-// 	register_setting('smpro_license', 'sermonmanager_license_key', 'smpro_sanitize_license' );
-// }
-// add_action('admin_init', 'smpro_license_register_option');
-
-// function smpro_sanitize_license( $new ) {
-// 	$old = get_option( 'sermonmanager_license_key' );
-// 	if( $old && $old != $new ) {
-// 		delete_option( 'smpro_license_status' ); // new license has been entered, so must reactivate
-// 	}
-// 	return $new;
-// }
-
-
-
 /**
  * Hook into the 'plugins_api' to display custom plugin details.
  */

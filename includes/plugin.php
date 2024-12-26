@@ -228,7 +228,6 @@ class Plugin {
 		$this->notice_manager     = new Notice_Manager();
 		$this->templating_manager = new Templating_Manager();
 		$this->shortcodes_manager = new Shortcodes_Manager();
-		$this->licensing_manager  = new Licensing_Manager();
 		$this->updating_manager   = new Updating_Manager( SMP__FILE__, SMP_VERSION, 'smp_' );
 		$this->install_manager    = new Install_Manager();
 		$this->podcasting_manager = new Podcasting_Manager();
@@ -489,21 +488,6 @@ class Plugin {
 				}
 
 				exit;
-			}
-		);
-
-		// Check license for settings.
-		add_action(
-			'wp_ajax_smp_check_license',
-			function () {
-				$license_key = isset( $_POST['license_key'] ) ? ( trim( $_POST['license_key'] ) ?: false ) : false;
-
-				update_option( 'sermonmanager_license_key', $license_key );
-
-				$status = Plugin::instance()->licensing_manager->recheck_license( $license_key );
-
-				echo is_bool( $status ) ? ( $status ? 1 : 0 ) : $status;
-				die();
 			}
 		);
 
