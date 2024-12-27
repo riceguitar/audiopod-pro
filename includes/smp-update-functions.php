@@ -8,6 +8,22 @@
 use SMP\Plugin;
 
 /**
+ * Since we have removed WPFC Manager, we will transfer the license key as well. And reactivate the product.
+ */
+function smp_update_100beta2_move_from_wpfcm() {
+	$wpfcm_license_key = get_option( 'sermon-manager-pro-license_key', false );
+
+	if ( $wpfcm_license_key ) {
+		update_option( 'sermonmanager_license_key', $wpfcm_license_key );
+		delete_option( 'sermon-manager-pro-license_key' );
+		Plugin::instance()->licensing_manager->recheck_license( $wpfcm_license_key );
+	}
+
+	// Mark it as done, backup way.
+	update_option( 'wp_smp_updater_' . __FUNCTION__ . '_done', 1 );
+}
+
+/**
  * Convert default podcast data to new podcasting.
  */
 function smp_update_100beta8_convert_default_podcast() {

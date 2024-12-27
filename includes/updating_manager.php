@@ -50,6 +50,13 @@ class Updating_Manager {
 	protected $version;
 
 	/**
+	 * Plugin's license key.
+	 *
+	 * @var string
+	 */
+	protected $license_key;
+
+	/**
 	 * Updating_Manager constructor.
 	 *
 	 * @param string $file    The plugin's main file, via __FILE__.
@@ -63,6 +70,7 @@ class Updating_Manager {
 		$this->file        = $file;
 		$this->version     = $version;
 		$this->prefix      = $prefix;
+		$this->license_key = \SermonManager::getOption( 'license_key' );
 
 		// Get the slug from the file.
 		$this->plugin_slug = $this->_get_plugin_slug();

@@ -6,17 +6,17 @@
  */
 
 /*
- * Plugin Name: AudioPod Pro
- * Plugin URI: https://audiopod.cloud/
- * Description: A fork of Sermon Manager Pro
- * Version: 1.0
- * Author: David Sudarma
+ * Plugin Name: Sermon Manager Pro
+ * Plugin URI: https://sermonmanager.pro/
+ * Description: This plugin is an addon to Sermon Manager, the most popular sermon plugin for WordPress. Enjoy templates, page builder support, page assignment and much more.
+ * Version: 2.0.15.2
+ * Author: WP for Church Author
  * URI: https://www.wpforchurch.com/
  *
- * Text Domain: audiopod-pro
+ * Text Domain: sermon-manager-pro
  *
- * Requires at least: 6.7.1
- * Tested up to: 6.7.1
+ * Requires at least: 4.5
+ * Tested up to: 6.3
  */
 
 // All files must be PHP 5.3 compatible!
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or exit;
  */
 function smp_load() {
 	define( 'SMP_VERSION', preg_match( '/^.*Version: (.*)$/m', file_get_contents( __FILE__ ), $version ) ? trim( $version[1] ) : 'N/A' );
-	define( 'SMP_SM_VERSION', '1.0' ); // Minimum required Sermon Manager version.
+	define( 'SMP_SM_VERSION', '2.15.15' ); // Minimum required Sermon Manager version.
 
 	define( 'SMP__FILE__', __FILE__ );
 	define( 'SMP_BASENAME', plugin_basename( SMP__FILE__ ) );
@@ -93,6 +93,68 @@ function my_run_only_once() {
         // update_option( 'run_divi_option_reset_once', true );
     // }
 }
+
+
+
+
+/* plugin Updater EDD */
+
+define( 'EDD_CHURCH_STORE_URL_SMPRO', 'https://my.wpforchurch.com' ); 
+define( 'PRODUCT_ID_ON_CHURCH_SMPRO', 53 ); 
+define( 'PRODUCT_NAME_ON_CHURCH_SMPRO', 'Sermon Manager Pro 2.0' );
+
+register_deactivation_hook( __FILE__, 'remove_template_directory' );
+function remove_template_directory(){
+	rrmdir(WP_CONTENT_DIR.'/data');
+}
+
+function rrmdir($dir) {
+   if (is_dir($dir)) { 
+     $objects = scandir($dir); 
+     foreach ($objects as $object) { 
+       if ($object != "." && $object != "..") { 
+         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object); 
+       } 
+     } 
+     reset($objects); 
+     rmdir($dir); 
+   } 
+}
+
+// if( !class_exists( 'SMPRO_SL_Plugin_Updater' ) ) {
+// 	include( dirname( __FILE__ ) . '/SMPRO_SL_Plugin_Updater.php' );
+// }
+
+// function smpro_plugin_updater_fun() {
+// 	$license_key = trim( get_option( 'sermonmanager_license_key' ) );
+
+// 	$edd_updater = new SMPRO_SL_Plugin_Updater( EDD_CHURCH_STORE_URL_SMPRO, __FILE__,
+// 		array(
+// 			'version' => '2.0.4',                    // current version number
+// 			'license' => $license_key,             // license key (used get_option above to retrieve from DB)
+// 			'item_id' => PRODUCT_ID_ON_CHURCH_SMPRO,       // ID of the product
+// 			'author'  => 'Easy Digital Downloads', // author of this plugin
+// 			'beta'    => false,
+// 		)
+// 	);
+
+// }
+// add_action( 'admin_init', 'smpro_plugin_updater_fun', 0 );
+
+
+// function smpro_license_register_option() {
+// 	// creates our settings in the options table
+// 	register_setting('smpro_license', 'sermonmanager_license_key', 'smpro_sanitize_license' );
+// }
+// add_action('admin_init', 'smpro_license_register_option');
+
+// function smpro_sanitize_license( $new ) {
+// 	$old = get_option( 'sermonmanager_license_key' );
+// 	if( $old && $old != $new ) {
+// 		delete_option( 'smpro_license_status' ); // new license has been entered, so must reactivate
+// 	}
+// 	return $new;
+// }
 
 
 

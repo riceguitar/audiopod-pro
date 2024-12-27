@@ -85,7 +85,7 @@ class Autoloader {
 	 * @access private
 	 */
 	private static function get_file_name_from_class( $class ) {
-	    return "{$class}.php";
+		return "${class}.php";
 	}
 
 	/**
