@@ -448,8 +448,7 @@ class Updating_Manager {
 		$plugin_data      = get_plugin_data( $this->file );
 		$remote_version   = $this->get_remote_version();
 		$remote_changelog = $this->get_remote_changelog();
-
-		$remote_changelog = preg_replace( '/^### (.*) ###$/m', '<strong>$1</strong>', $remote_changelog );
+		$remote_changelog = !is_null($remote_changelog) ? preg_replace( '/^###\s*(.*?)\s*###$/m', '<strong>$1</strong>', $remote_changelog ) : '';
 
 		// Make sure to only override Sermon Manager Pro details.
 		if ( ! in_array( $args->slug, array(
